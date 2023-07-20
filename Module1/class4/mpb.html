@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin-Padding-Border</title>
+    <style>
+        div{
+            background-color: blue;
+            height: 50px;
+            width: 50px;
+            /* margin-bottom: 10px; */
+        }
+        .container1{
+            margin-bottom: 10px;
+            border-radius: 100%;
+
+        }
+        .container2{
+            /* margin-top: 20px; */
+            margin: 10px 20px; 
+            /*10px will be applied to top bottom and 20px to left right */
+            margin: 10px 20px 30px; /* 10 will be given to top,30 to bottom and 20 to left and right*/
+            border-radius: 100%;
+            background-color: pink;
+            border: 2px solid red;
+
+            /* margin: 10px 20px 30px 40px; */
+             /* 10-top,20-right, 30- bottom, 40-left, anticlockwise assignment*/
+
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container1"></div>
+    <div class="container2"></div>
+    <!-- <div class="container"></div> -->
+</body>
+</html>

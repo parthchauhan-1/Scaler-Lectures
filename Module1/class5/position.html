@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>position</title>
+    <style>
+        body{
+            height: 1000px;
+        }
+        .container{
+            /* margin: 100px; */
+            height: 500px;
+            background-color: grey;
+            width: 300px;
+
+        }
+
+        .box{
+            height: 100px;
+            width: 100px;
+            background-color: yellow;
+            border: 1px solid black;
+        }
+        .one{
+            /* top bottom left right will be given wrt to
+            it's normal flow/original place */
+            position: relative;
+            top: 100px;
+            left: 100px;
+            
+        }
+        .two{
+            background-color: magenta;
+            /* fixed- position gets fixed wrt screen window */
+            position: fixed;
+            top: 100px;
+            left: 100px;
+            /* bottom: 20px;
+            right: 20px;
+            border-radius: 100%; */
+
+
+        }
+        .three{
+            background-color: aqua;
+        }
+        .four{
+            background-color: saddlebrown;
+            position: sticky;
+            /* sticky- acts as relative until a threshold is reached
+            after which it acts as fixed, 
+            left right bottom acts as threshold */
+            top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mainbody">
+        <div class="container">
+            <div class="box one"></div>
+            <div class="box two"></div>
+            <div class="box three"></div>
+            <div class="box four"></div>
+        </div>
+
+    </div>
+</body>
+</html>

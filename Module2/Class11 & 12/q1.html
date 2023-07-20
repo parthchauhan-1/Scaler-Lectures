@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q1</title>
+  </head>
+  <body>
+    <button>Say Hello</button>
+    <button id="remove">Remove All</button>
+    
+    <script>
+      //Q1 on Clicking the Button append hello to the page
+      let helloButton=document.querySelector("button");
+      helloButton.addEventListener("click",function(){
+        let p=document.createElement("p");
+        p.innerText="Hello";
+        let body=document.querySelector("body");
+        body.appendChild(p);
+        console.log("Clicked!")
+      })
+      let removeButton=document.querySelector("#remove");
+      removeButton.addEventListener("click",function(){
+        console.log("Removed all!");
+        let p=document.querySelector("p");
+        p.remove();
+      })
+    </script>
+  </body>
+</html>

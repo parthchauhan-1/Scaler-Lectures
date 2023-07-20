@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="the-two" class="two">I"m a heading</h1>
+    <div>
+        <p>I'm a child of div</p>
+        <p>I'm another child of div</p>
+    </div>
+    <h2>I"m first heading 2</h2>
+    <h2 class="one">I"m second heading 2</h2>
+    <h2 id="the-one">I"m third heading 2</h2>
+
+    <script>
+        // any function associated with an object is known as method
+        // console.log(document);
+        // read
+        let h2Element=document.querySelector("body h2");
+        // console.log(h2Element);
+        // console.log(h2Element.innerText); // will only show the text element of h2Element
+        // let allH2element=document.querySelectorAll("h2");
+        // console.log(allH2element);
+        // let classOne=document.querySelector(".one");
+        // console.log(classOne);
+        // let idOne=document.querySelector("#the-one");
+        // console.log(idOne);
+        // let h1Element=document.getElementById("the-two")
+        // console.log(h1Element);
+        // let classOne=document.getElementsByClassName("one");
+        // console.log(classOne);
+        let div=document.querySelector("div");
+        // console.log(div.innerHTML); // gives inner HTML
+        // console.log(div.innerText); // gives only text
+        
+        //Write
+        let h3Element = document.createElement("h3");
+        h3Element.innerText = "I'm heading h3";
+        console.log(h3Element);
+        let body=document.querySelector("body");
+        body.appendChild(h3Element);
+
+        // Update
+        // let h1=document.querySelector("h1");
+        // console.log(h1);
+        // h1.innerText="I'm updated heading with DOM manipulation";
+
+        //Delete
+       let h2Second=document.querySelector(".one");
+       h2Second.remove();
+
+        // Create element with attribute
+        let h6=document.createElement("h6");
+        h6.innerText="I'm heading 6";
+        // Set attribute with 
+        // first parameter is what you want to add 
+        // and second parameter is value
+        h6.setAttribute("class","one");
+        h6.setAttribute("id","the-one");
+        h6.setAttribute("custom-attr","random");
+        // h6.setAttribute("class","two three four five"); // This will over-write
+        h6.classList.add("two"); // this will add NOT over-write
+        // to get value of any attribute we use getAttribute
+        let valueOfId=h6.getAttribute("id");
+        console.log(h6);
+        console.log(valueOfId);
+
+        // check if class is there
+        let h1=document.querySelector("h1");
+        let valueOfClass=h1.getAttribute("class");
+        console.log(valueOfClass);
+        if(valueOfClass=="Two"){
+            console.log("Two is present");
+        }
+
+        //shortcut of getting same thing
+        let flag=h1.classList.contains("two");
+        console.log(flag);
+        
+    </script>
+</body>
+
+</html>
