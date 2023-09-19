@@ -1,38 +1,28 @@
+import { useEffect, useState } from "react";
+import MovieCard from "./MovieCard";
+import axios from "axios";
+
+
 function Movies() {
+    let [movieList, setMovie] = useState([]);
+    useEffect(() => {
+        axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=24599a0ad433f254043a04781f736a75`)
+            .then(
+                function (res) {
+                    setMovie(res.data.results);
+                }, []
+            );
+    })
+
+
     return (
         <>
             <div className="text-2xl m-3 text-center font-bold">Trending Movies</div>
 
             <div className="flex flex-wrap justify-around gap-8">
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-                <div className="h-[40vh] w-[200px] bg-center bg-cover rounded-md hover:scale-110 hover:cursor-pointer duration-300"
-                    style={
-                        { backgroundImage: `url(https://fr.web.img4.acsta.net/pictures/14/09/19/17/46/076962.jpg)` }}></div>
-
+                {movieList.map((movieObj) => {
+                  return  <MovieCard key={movieObj.id} title={movieObj.title} poster_path={movieObj.poster_path} />
+                })}
             </div>
         </>
     )
