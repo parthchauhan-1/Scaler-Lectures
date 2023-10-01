@@ -7,6 +7,23 @@ import Pagination from "./Pagination";
 function Movies() {
     let [movieList, setMovie] = useState([]);
     let [pageNo,setPageNo]=useState(1);
+    let [watchList,setWatchList]= useState([]);
+
+    let handleAddToWatchList=(movieId)=>{
+        let newWatchList=[...watchList,movieId];
+        console.log(newWatchList)
+        setWatchList(newWatchList);
+    }
+
+    let handleRemoveFromWatchList=(movieId)=>{
+        let filteredArray= watchList.filter((id)=>{
+            return id != movieId;
+        })
+        console.log(filteredArray);
+        setWatchList(filteredArray);
+    }
+
+
     let handlenext=()=>{
         setPageNo(pageNo+1);
     }
@@ -32,7 +49,13 @@ function Movies() {
 
             <div className="flex flex-wrap justify-around gap-8">
                 {movieList.map((movieObj) => {
-                  return  <MovieCard key={movieObj.id} title={movieObj.title} poster_path={movieObj.poster_path} />
+                  return  <MovieCard key={movieObj.id} 
+                                    id={movieObj.id} 
+                                    title={movieObj.title} 
+                                    poster_path={movieObj.poster_path} 
+                                    watchList={watchList} 
+                                    handleAddToWatchList={handleAddToWatchList} 
+                                    handleRemoveFromWatchList={handleRemoveFromWatchList}/>
                 })}
             </div>
             <Pagination pageNo={pageNo} handlePrev={handlePrev} handlenext={handlenext}/>
