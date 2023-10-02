@@ -10,6 +10,8 @@ export default function MovieCard(props) {
                 className="m-4 
                             h-8 
                             w-8 
+                            hover:scale-110
+                            duration-300
                             bg-gray-600/60 
                             flex 
                             items-center 
@@ -18,6 +20,8 @@ export default function MovieCard(props) {
                             className="m-4 
                                         h-8 
                                         w-8 
+                                        hover:scale-110
+                                        duration-300
                                         bg-gray-600/60 
                                         flex 
                                         items-center 

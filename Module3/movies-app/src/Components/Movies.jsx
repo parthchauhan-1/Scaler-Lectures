@@ -12,6 +12,7 @@ function Movies() {
     let handleAddToWatchList=(movieId)=>{
         let newWatchList=[...watchList,movieId];
         console.log(newWatchList)
+        localStorage.setItem("movieApp",JSON.stringify(newWatchList))
         setWatchList(newWatchList);
     }
 
@@ -20,9 +21,13 @@ function Movies() {
             return id != movieId;
         })
         console.log(filteredArray);
+        localStorage.setItem("movieApp",JSON.stringify(filteredArray));
         setWatchList(filteredArray);
     }
-
+    useEffect(()=>{
+        let getItemFromLocalStorage=localStorage.getItem("movieApp");
+        setWatchList(JSON.parse(getItemFromLocalStorage))
+    },[])
 
     let handlenext=()=>{
         setPageNo(pageNo+1);
