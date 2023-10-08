@@ -4,28 +4,17 @@ import axios from "axios";
 import Pagination from "./Pagination";
 
 
-function Movies() {
+function Movies(props) {
+    let {setWatchList,watchList,handleAddToWatchList,handleRemoveFromWatchList}=props;
+
     let [movieList, setMovie] = useState([]);
     let [pageNo,setPageNo]=useState(1);
-    let [watchList,setWatchList]= useState([]);
-
-    let handleAddToWatchList=(movieId)=>{
-        let newWatchList=[...watchList,movieId];
-        console.log(newWatchList)
-        localStorage.setItem("movieApp",JSON.stringify(newWatchList))
-        setWatchList(newWatchList);
-    }
-
-    let handleRemoveFromWatchList=(movieId)=>{
-        let filteredArray= watchList.filter((id)=>{
-            return id != movieId;
-        })
-        console.log(filteredArray);
-        localStorage.setItem("movieApp",JSON.stringify(filteredArray));
-        setWatchList(filteredArray);
-    }
+    
     useEffect(()=>{
         let getItemFromLocalStorage=localStorage.getItem("movieApp");
+        if(getItemFromLocalStorage==null){
+            return;
+        }
         setWatchList(JSON.parse(getItemFromLocalStorage))
     },[])
 
@@ -55,7 +44,7 @@ function Movies() {
             <div className="flex flex-wrap justify-around gap-8">
                 {movieList.map((movieObj) => {
                   return  <MovieCard key={movieObj.id} 
-                                    id={movieObj.id} 
+                                    movieObj={movieObj} 
                                     title={movieObj.title} 
                                     poster_path={movieObj.poster_path} 
                                     watchList={watchList} 
