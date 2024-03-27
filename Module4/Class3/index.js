@@ -12,3 +12,28 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+// Schema
+const courseSchema = mongoose.Schema({
+  name: String,
+  creator: String,
+  rating: Number,
+  isPublished: Boolean,
+  publishedData: { type: Date, default: Date.now },
+});
+
+// Model
+const Course = mongoose.model("Course", courseSchema);
+
+//CRUD
+async function createCourse() {
+  const course = new Course({
+    name: "Java",
+    creator: "Parth",
+    rating: 4,
+    isPublished: true,
+  });
+  const courseCreated = await course.save();
+  console.log(courseCreated);
+}
+createCourse();
