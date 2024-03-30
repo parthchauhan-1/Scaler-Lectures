@@ -7,7 +7,12 @@ const app = express();
 require("dotenv").config();
 const dbConfig = require("./config/dbConfig");
 
-app.get("/", (req, res) => {
-  res.send("Hi");
-});
+const userRoute = require("./routes/userRoute");
+
+app.use(express.json());
+app.use("/", userRoute);
+
+// app.get("/", (req, res) => {
+//   res.send("Hi");
+// });
 app.listen(PORT, () => console.log(`server running at ${PORT}`));
