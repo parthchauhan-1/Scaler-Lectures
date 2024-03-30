@@ -13,7 +13,7 @@ mongoose
     console.log(error);
   });
 
-// Schema
+// Schema or Blueprint of table to be made
 const courseSchema = mongoose.Schema({
   name: String,
   creator: String,
@@ -22,10 +22,11 @@ const courseSchema = mongoose.Schema({
   publishedData: { type: Date, default: Date.now },
 });
 
-// Model
+// Model or Create Table
 const Course = mongoose.model("Course", courseSchema);
 
 //CRUD
+//Create
 async function createCourse() {
   const course = new Course({
     name: "Java",
@@ -36,4 +37,13 @@ async function createCourse() {
   const courseCreated = await course.save();
   console.log(courseCreated);
 }
-createCourse();
+// createCourse();
+
+//Read
+async function getCourse() {
+  // const allCourses = await Course.find({});
+  // console.log(allCourses);
+  const course = await Course.find({ creator: "Parth" });
+  console.log(course);
+}
+getCourse();
