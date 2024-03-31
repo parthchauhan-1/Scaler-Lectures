@@ -1,25 +1,18 @@
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Form, message } from 'antd';
 
 import Button from '../Components/Button';
-
-import { Form, message } from 'antd';
+import { User } from '../ApiCalls/users';
 
 const Register = () => {
     const handleSubmit = async function (value) {
         try {
-            const res = await axios.post('http://localhost:8080/register', value,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            if (res.data.success) {
-                message.success(res.data.message);
+            const res = await User(value, 'register');
+            if (res.success) {
+                message.success(res.message);
             }
             else {
-                message.error(res.data.message);
+                message.error(res.message);
             }
         }
         catch (err) {
@@ -70,3 +63,4 @@ const Register = () => {
 }
 
 export default Register
+

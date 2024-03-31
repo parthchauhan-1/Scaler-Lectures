@@ -2,6 +2,7 @@ import { Form, message } from "antd";
 import Button from '../Components/Button';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { User } from "../ApiCalls/users";
 
 
 const Login = () => {
@@ -9,19 +10,13 @@ const Login = () => {
 
     const handleSubmit = async function (value) {
         try {
-            const res = await axios.post('http://localhost:8080/login', value,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            if (res.data.success) {
-                message.success(res.data.message);
+            const res = await User(value, 'login')
+            if (res.success) {
+                message.success(res.message);
                 navigate('/');
             }
             else {
-                message.error(res.data.message);
+                message.error(res.message);
             }
         } catch (error) {
             console.log(error.message)
