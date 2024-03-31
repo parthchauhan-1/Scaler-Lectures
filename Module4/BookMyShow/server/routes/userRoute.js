@@ -35,11 +35,15 @@ router.post("/login", async (req, res) => {
     if (user) {
       const inputPassword = req.body.password;
       const dbStoredPassword = user.password;
-      const validPassword = bcrypt.compare(dbStoredPassword, inputPassword);
+      const validPassword = await bcrypt.compare(
+        inputPassword,
+        dbStoredPassword
+      );
+      console.log(validPassword);
       if (!validPassword) {
         return res.send({
           success: false,
-          message: "Incorrect Password!",
+          message: "Incorrect Password! 😥",
         });
       }
 

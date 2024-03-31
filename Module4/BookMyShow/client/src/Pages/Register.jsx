@@ -1,15 +1,39 @@
-import Button from '../Components/Button';
-import { Link } from 'react-router-dom'
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-import { Form } from 'antd'
+import Button from '../Components/Button';
+
+import { Form, message } from 'antd';
 
 const Register = () => {
+    const handleSubmit = async function (value) {
+        try {
+            const res = await axios.post('http://localhost:8080/register', value,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            if (res.data.success) {
+                message.success(res.data.message);
+            }
+            else {
+                message.error(res.data.message);
+            }
+        }
+        catch (err) {
+            console.log(err.message)
+        }
+
+    }
+
     return (
         <div className="flex justify-center h-screen items-center bg-primary">
             <div className="card p-3 w-400">
                 <h1 className="text-xl mb-1">Welcome to Scaler Shows! Please Register </h1>
                 <hr />
-                <Form layout="vertical" className="mt-1">
+                <Form layout="vertical" className="mt-1" onFinish={handleSubmit}>
                     <Form.Item
                         label="Name"
                         name="name"
