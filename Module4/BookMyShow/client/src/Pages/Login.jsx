@@ -20,7 +20,8 @@ const Login = () => {
             if (res.success) {
                 message.success(res.message);
                 localStorage.setItem('token', res.token);
-                navigate('/');
+                // navigate('/');
+                document.location.href = '/';
             }
             else {
                 message.error(res.message);
