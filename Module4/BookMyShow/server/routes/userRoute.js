@@ -1,8 +1,10 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 const User = require("../models/userModel");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.post("/api/users/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const userExists = await User.findOne({ email: req.body.email });
     if (userExists) {
@@ -29,7 +31,7 @@ router.post("/api/users/register", async (req, res) => {
   }
 });
 
-router.post("/api/users/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -39,17 +41,19 @@ router.post("/api/users/login", async (req, res) => {
         inputPassword,
         dbStoredPassword
       );
-      console.log(validPassword);
       if (!validPassword) {
         return res.send({
           success: false,
           message: "Incorrect Password! 😥",
         });
       }
-
+      const token = jwt.sign({ userID: user._id }, process.env.secret_key_jwt, {
+        expiresIn: "1d",
+      });
       res.send({
         success: true,
         message: "Logged in successfully 🤗",
+        token: token,
       });
     } else {
       res.send({
@@ -60,6 +64,28 @@ router.post("/api/users/login", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+// router.get("/get-current-user", authMiddleware, async (req, res) => {
+//   console.log(req.body);
+//   const user = await User.findById(req.body.userId).select("-password");
+//   console.log(user);
+//   res.send({
+//     success: true,
+//     message: "You are allowed to go to protected route",
+//     data: user,
+//   });
+// });
+
+router.get("/get-current-user", authMiddleware, async (req, res) => {
+  const user = await User.findById(req.body.userId).select("-password");
+  console.log(user);
+
+  res.send({
+    success: true,
+    message: "You are allowed to go to protected route",
+    data: user,
+  });
 });
 
 module.exports = router;

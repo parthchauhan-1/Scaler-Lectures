@@ -4,6 +4,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import PageNotFound from "./Pages/PageNotFound";
 import Home from "./Pages/Home";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 import "./stylesheets/alignments.css";
 import "./stylesheets/sizes.css";
@@ -15,7 +16,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route path="login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<PageNotFound />} />

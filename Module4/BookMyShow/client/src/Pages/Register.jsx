@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Form, message } from 'antd';
 
 import Button from '../Components/Button';
-import { User } from '../ApiCalls/users';
+import { User } from '../apicalls/users';
 
 const Register = () => {
     const handleSubmit = async function (value) {

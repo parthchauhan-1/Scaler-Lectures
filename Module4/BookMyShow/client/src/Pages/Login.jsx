@@ -1,18 +1,25 @@
 import { Form, message } from "antd";
 import Button from '../Components/Button';
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { User } from "../ApiCalls/users";
+import { User } from "../apicalls/users";
+import { useEffect } from "react";
 
 
 const Login = () => {
     const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     if (localStorage.getItem('token')) {
+    //         navigate('/')
+    //     }
+    // }, [])
 
     const handleSubmit = async function (value) {
         try {
             const res = await User(value, 'login')
             if (res.success) {
                 message.success(res.message);
+                localStorage.setItem('token', res.token);
                 navigate('/');
             }
             else {
