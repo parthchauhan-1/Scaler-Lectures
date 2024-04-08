@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const Movie = require("../models/movieModel");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 //add new movie
-router.post("/add-movie", async (req, res) => {
+router.post("/add-movie", authMiddleware, async (req, res) => {
   try {
     const newMovie = await Movie(req.body);
     // console.log(newMovie);
@@ -17,7 +18,7 @@ router.post("/add-movie", async (req, res) => {
 });
 
 //delete a movie
-router.delete("/delete-movie", async (req, res) => {
+router.post("/delete-movie", authMiddleware, async (req, res) => {
   try {
     await Movie.findByIdAndDelete(req.body.movieId);
     res.send({ success: true, message: "movie deleted successfully" });
@@ -27,7 +28,7 @@ router.delete("/delete-movie", async (req, res) => {
 });
 
 //get all the movies
-router.get("/get-all-movies", async (req, res) => {
+router.get("/get-all-movies", authMiddleware, async (req, res) => {
   try {
     const movies = await Movie.find();
     res.send({
@@ -44,7 +45,7 @@ router.get("/get-all-movies", async (req, res) => {
 });
 
 //update movie
-router.put("/update-movie", async (req, res) => {
+router.put("/update-movie", authMiddleware, async (req, res) => {
   try {
     await Movie.findByIdAndUpdate(req.body.movieId, req.body);
     res.send({ success: true, message: "movie updated successfully" });

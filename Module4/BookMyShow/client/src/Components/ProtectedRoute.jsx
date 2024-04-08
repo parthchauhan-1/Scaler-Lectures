@@ -14,7 +14,7 @@ function ProtectedRoute({ children }) {
 
     const getpresentUser = async () => {
         try {
-            // dispatch(setLoading(true));
+            dispatch(setLoading(true));
             const response = await GetCurrentUser();
             // console.log(response)
             if (response.success) {
@@ -51,7 +51,7 @@ function ProtectedRoute({ children }) {
                 <div className="header bg-primary flex justify-between p-2">
                     <div>
                         <h1 className="text-2xl text-white cursor-pointer"
-                        // onClick={() => navigate("/")}
+                            onClick={() => navigate("/")}
                         >Book My Show</h1>
                     </div>
 

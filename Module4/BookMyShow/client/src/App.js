@@ -5,6 +5,8 @@ import Register from "./Pages/Register";
 import PageNotFound from "./Pages/PageNotFound";
 import Home from "./Pages/Home";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import Profile from "./Pages/Profile";
+import Admin from "./Pages/Admin";
 
 import "./stylesheets/alignments.css";
 import "./stylesheets/sizes.css";
@@ -21,6 +23,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />
