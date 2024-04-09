@@ -2,6 +2,7 @@ import React from "react";
 import PageTitle from "../../Components/PageTitle";
 import { Tabs } from "antd";
 import MoviesList from "./MovieList";
+import TheatreTable from "./TheatreTable";
 // import TheatresList from "./TheatresList";
 
 function Admin() {
@@ -15,7 +16,7 @@ function Admin() {
                 </Tabs.TabPane>
 
                 <Tabs.TabPane tab="Theatres" key="2">
-                    <h1>Theatre table</h1>
+                    <TheatreTable />
                 </Tabs.TabPane>
             </Tabs>
         </div>

@@ -6,14 +6,64 @@ const Theatre = require("../models/theatreModel");
 router.post("/add-theatre", authMiddleware, async (req, res) => {
   try {
     const newTheatre = new Theatre(req.body);
-    newTheatre.save();
+    await newTheatre.save();
+    res.send({
+      success: true,
+      message: "Theatre added successfully!",
+    });
   } catch (error) {
-    res.send({ success: true, message: error.message });
+    res.send({ success: false, message: error.message });
   }
 });
 
-router.get("/hi", async (req, res) => {
-  res.send({ message: "Hi" });
+//get-all-theatres
+router.get("/get-all-theatres", authMiddleware, async (req, res) => {
+  try {
+    await Theatre.find().populate("owner").select("-password");
+  } catch (error) {
+    res.send({ success: false, message: error.message });
+  }
+});
+
+//get theatre owner specific
+router.post("/get-all-theatre-by-owner", authMiddleware, async (req, res) => {
+  try {
+    const theatres = await Theatre.find({ owner: req.body.owner });
+    res.send({
+      success: true,
+      message: "Theatres fetched!",
+      data: theatres,
+    });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+router.put("/update-theatre", authMiddleware, async (req, res) => {
+  try {
+    await Theatre.findByIdAndUpdate(req.body.theatreId, req.body);
+    res.send({
+      success: true,
+      message: "Theatre updated successfully!",
+    });
+  } catch (error) {
+    res.send({ success: false, message: error.message });
+  }
+});
+
+router.post("/delete-theatre", authMiddleware, async (req, res) => {
+  try {
+    await Theatre.findByIdAndDelete(req.body.theatreId);
+    res.send({
+      success: true,
+      message: "Theatre deleted successfully!",
+    });
+  } catch (error) {
+    res.send({ success: false, message: error.message });
+  }
 });
 
 module.exports = router;
