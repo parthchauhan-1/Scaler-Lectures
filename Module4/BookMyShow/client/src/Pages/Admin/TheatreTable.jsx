@@ -12,7 +12,6 @@ function TheatreTable() {
         try {
             dispatch(setLoading(true));
             const response = await GetAllTheatres();
-            console.log(response.data);
             if (response.success) {
                 setTheatres(response.data);
             } else {
@@ -26,26 +25,28 @@ function TheatreTable() {
         }
     };
 
-    //   const handleStatusChange = async (theatre) => {
-    //     try {
-    //       dispatch(ShowLoading());
-    //       const response = await UpdateTheatre({
-    //         theatreId: theatre._id,
-    //         ...theatre,
-    //         isActive: !theatre.isActive,
-    //       });
-    //       if (response.success) {
-    //         message.success(response.message);
-    //         getData();
-    //       } else {
-    //         message.error(response.message);
-    //       }
-    //       dispatch(HideLoading());
-    //     } catch (error) {
-    //       dispatch(HideLoading());
-    //       message.error(error.message);
-    //     }
-    //   };
+    const handleStatusChange = async (theatre) => {
+        try {
+            dispatch(setLoading(true));
+            const response = await UpdateTheatre({
+                theatreId: theatre._id,
+                ...theatre,
+                isActive: !theatre.isActive,
+            });
+            if (response.success) {
+                message.success(response.message);
+                getData();
+            } else {
+                message.error(response.message);
+            }
+        } catch (error) {
+            message.error(error.message);
+        }
+        finally {
+            dispatch(setLoading(false));
+
+        }
+    };
 
     const columns = [
         {
@@ -91,7 +92,7 @@ function TheatreTable() {
                         {record.isActive && (
                             <span
                                 className="underline"
-                            //  onClick={() => handleStatusChange(record)}
+                                onClick={() => handleStatusChange(record)}
                             >
                                 Block
                             </span>
@@ -99,7 +100,7 @@ function TheatreTable() {
                         {!record.isActive && (
                             <span
                                 className="underline"
-                            // onClick={() => handleStatusChange(record)}
+                                onClick={() => handleStatusChange(record)}
                             >
                                 Approve
                             </span>

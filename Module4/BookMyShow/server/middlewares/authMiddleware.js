@@ -4,11 +4,10 @@ module.exports = function (req, res, next) {
   try {
     const token = req.headers.authorization.split(" ")[1];
     // const token = req.headers;
-    console.log(token);
+    // console.log(token);
     const decoded = jwt.verify(token, process.env.secret_key_jwt);
-    console.log(decoded);
+    // console.log(decoded);
     req.body.userId = decoded.userID;
-    console.log(req.body);
     next();
   } catch (err) {
     console.log(err.message);

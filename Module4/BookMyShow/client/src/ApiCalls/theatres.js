@@ -44,6 +44,7 @@ export const UpdateTheatre = async (payload) => {
 export const GetAllTheatres = async () => {
   try {
     const res = await axiosInstance.get(`${BASE_URL}/get-all-theatres`);
+    console.log(res.data);
     return res.data;
   } catch (error) {
     return error.response;

@@ -5,7 +5,8 @@ const Theatre = require("../models/theatreModel");
 //add a theatre
 router.post("/add-theatre", authMiddleware, async (req, res) => {
   try {
-    const newTheatre = new Theatre(req.body);
+    const newTheatre = new Theatre({ ...req.body, owner: req.body.userId });
+    // console.log(newTheatre);
     await newTheatre.save();
     res.send({
       success: true,
@@ -19,7 +20,8 @@ router.post("/add-theatre", authMiddleware, async (req, res) => {
 //get-all-theatres
 router.get("/get-all-theatres", authMiddleware, async (req, res) => {
   try {
-    await Theatre.find().populate("owner").select("-password");
+    const data = await Theatre.find().populate("owner");
+    res.send({ success: true, data: data });
   } catch (error) {
     res.send({ success: false, message: error.message });
   }
@@ -28,7 +30,7 @@ router.get("/get-all-theatres", authMiddleware, async (req, res) => {
 //get theatre owner specific
 router.post("/get-all-theatre-by-owner", authMiddleware, async (req, res) => {
   try {
-    const theatres = await Theatre.find({ owner: req.body.owner });
+    const theatres = await Theatre.find({ owner: req.body.userId });
     res.send({
       success: true,
       message: "Theatres fetched!",
