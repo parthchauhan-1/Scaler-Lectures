@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import Button from "../../Components/Button";
 import TheatreForm from "./TheatreForm";
+import Shows from "./Shows";
 
 import { Table, message } from 'antd'
 import { setLoading } from "../../reduxStore/loaderSlice";
@@ -146,13 +147,13 @@ export default function TheatreList() {
                 />
             )}
 
-            {/* {openShowsModal && (
-        <Shows
-          openShowsModal={openShowsModal}
-          setOpenShowsModal={setOpenShowsModal}
-          theatre={selectedTheatre}
-        />
-      )} */}
+            {openShowsModal && (
+                <Shows
+                    openShowsModal={openShowsModal}
+                    setOpenShowsModal={setOpenShowsModal}
+                    theatre={selectedTheatre}
+                />
+            )}
         </div>
     );
 }

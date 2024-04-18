@@ -8,11 +8,11 @@ import { useEffect } from "react";
 const Login = () => {
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (localStorage.getItem('token')) {
-    //         navigate('/')
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/')
+        }
+    }, [])
 
     const handleSubmit = async function (value) {
         try {
