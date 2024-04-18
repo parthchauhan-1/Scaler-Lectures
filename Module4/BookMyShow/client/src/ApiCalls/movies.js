@@ -40,3 +40,13 @@ export const UpdateMovie = async (payload) => {
     return error.response;
   }
 };
+
+//get-movie-by-id
+export const GetMovieById = async (id) => {
+  try {
+    const res = await axiosInstance.get(`${BASE_URL}/get-movie-by-id/${id}`);
+    return res.data;
+  } catch (error) {
+    return error.response;
+  }
+};

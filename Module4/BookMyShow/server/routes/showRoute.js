@@ -54,4 +54,32 @@ router.post("/delete-show", authMiddleware, async (req, res) => {
   }
 });
 
+//get all unique theatres which have shows of a movie
+router.post("/get-all-theatres-by-movie", authMiddleware, async (req, res) => {
+  try {
+    const { movie, date } = req.body;
+    //find all the shows of a movie on given date
+    const shows = await Shows.find({ movie, date }).populate("theatre");
+    //get all unique theatres
+    let uniqueTheatres = [];
+    shows.forEach((show) => {
+      const theatre = uniqueTheatres.find(
+        (theatre) => theatre._id == show.theatre._id
+      );
+      if (!theatre) {
+        const showsForThisTheatre = shows.filter(
+          (showObj) => showObj.theatre._id == show.theatre._id
+        );
+        uniqueTheatres.push({
+          ...show.theatre._doc,
+          shows: showsForThisTheatre,
+        });
+      }
+    });
+    res.send({ success: true, message: "Success", data: uniqueTheatres });
+  } catch (err) {
+    res.send({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;

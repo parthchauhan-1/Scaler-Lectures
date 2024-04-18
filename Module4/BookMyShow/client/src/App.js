@@ -13,6 +13,7 @@ import "./stylesheets/sizes.css";
 import "./stylesheets/form-elements.css";
 import "./stylesheets/theme.css";
 import "./stylesheets/custom.css";
+import MovieDescription from "./Pages/MovieDescription";
 
 function App() {
   return (
@@ -23,6 +24,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/movie/:id"
+          element={
+            <ProtectedRoute>
+              <MovieDescription />
             </ProtectedRoute>
           }
         />

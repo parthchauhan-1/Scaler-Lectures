@@ -57,4 +57,13 @@ router.put("/update-movie", authMiddleware, async (req, res) => {
   }
 });
 
+router.get("/get-movie-by-id/:id", authMiddleware, async (req, res) => {
+  const movie = await Movie.findById(req.params.id);
+  res.send({
+    success: true,
+    message: "Movie details fetched!!!",
+    data: movie,
+  });
+});
+
 module.exports = router;

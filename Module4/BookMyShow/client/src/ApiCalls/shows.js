@@ -30,3 +30,15 @@ export const DeleteShow = async (payload) => {
     return error.response;
   }
 };
+
+export const GetTheatresByMovie = async (payload) => {
+  try {
+    const res = await axiosInstance.post(
+      `${BASE_URL}/get-all-theatres-by-movie`,
+      payload
+    );
+    return res.data;
+  } catch (error) {
+    return error.response;
+  }
+};

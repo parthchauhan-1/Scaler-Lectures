@@ -21,7 +21,6 @@ export const User = async function (value, path) {
 export const GetCurrentUser = async function () {
   try {
     const res = await axiosInstance.get("/api/users/get-current-user");
-    console.log(res.data);
     return res.data;
   } catch (err) {
     return err;

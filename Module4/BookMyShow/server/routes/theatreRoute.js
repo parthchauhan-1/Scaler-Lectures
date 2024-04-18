@@ -68,4 +68,6 @@ router.post("/delete-theatre", authMiddleware, async (req, res) => {
   }
 });
 
+
+
 module.exports = router;
