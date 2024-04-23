@@ -21,6 +21,9 @@ export const User = async function (value, path) {
 export const GetCurrentUser = async function () {
   try {
     const res = await axiosInstance.get("/api/users/get-current-user");
+    if (res.data.err) {
+      localStorage.removeItem("token");
+    }
     return res.data;
   } catch (err) {
     return err;

@@ -85,6 +85,7 @@ function MovieForm({
                             <select name="" id="">
                                 <option value="">Select Language</option>
                                 <option value="Telugu">Telugu</option>
+                                <option value="Malayalam">Malayalam</option>
                                 <option value="English">English</option>
                                 <option value="Hindi">Hindi</option>
                                 <option value="Tamil">Tamil</option>

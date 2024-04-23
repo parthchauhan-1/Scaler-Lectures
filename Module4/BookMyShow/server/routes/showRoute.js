@@ -82,4 +82,20 @@ router.post("/get-all-theatres-by-movie", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/get-show-by-id", authMiddleware, async (req, res) => {
+  try {
+    const show = await Shows.findById(req.body.showId);
+    console.log(show);
+    res.send({
+      success: true,
+      data: show,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;

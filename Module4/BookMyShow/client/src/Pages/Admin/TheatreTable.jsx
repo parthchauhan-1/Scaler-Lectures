@@ -69,7 +69,8 @@ function TheatreTable() {
             title: "Owner",
             dataIndex: "owner",
             render: (text, record) => {
-                return record.owner.name;
+                console.log(record)
+                // return record.owner.name;
             },
         },
         {

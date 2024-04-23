@@ -12,7 +12,7 @@ function ProtectedRoute({ children }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const getpresentUser = async () => {
+    const getCurrentUser = async () => {
         try {
             dispatch(setLoading(true));
             const response = await GetCurrentUser();
@@ -38,7 +38,7 @@ function ProtectedRoute({ children }) {
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
-            getpresentUser();
+            getCurrentUser();
         } else {
             navigate("/login");
         }
@@ -60,10 +60,13 @@ function ProtectedRoute({ children }) {
                         <h1
                             className="text-sm underline"
                             onClick={() => {
-                                if (user.isAdmin) {
+                                if (user.userType == 'admin') {
                                     navigate("/admin");
-                                } else {
+                                } else if (user.userType == 'owner') {
                                     navigate("/profile");
+                                }
+                                else {
+                                    navigate('/');
                                 }
                             }}
                         >

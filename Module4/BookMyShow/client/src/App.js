@@ -14,8 +14,13 @@ import "./stylesheets/form-elements.css";
 import "./stylesheets/theme.css";
 import "./stylesheets/custom.css";
 import MovieDescription from "./Pages/MovieDescription";
+import { useSelector } from "react-redux";
+import BookShow from "./Pages/BookShow";
 
 function App() {
+  // const loader = useSelector((store) => store.loader.loading);
+  const loader = false;
+  console.log(loader);
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +28,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <Home />
+              {loader ? <h3>Loading...</h3> : <Home />}
             </ProtectedRoute>
           }
         />
@@ -32,15 +37,24 @@ function App() {
           path="/movie/:id"
           element={
             <ProtectedRoute>
-              <MovieDescription />
+              {loader ? <h3>Loading...</h3> : <MovieDescription />}
             </ProtectedRoute>
           }
         />
         <Route
+          path="/book-show/:id"
+          element={
+            <ProtectedRoute>
+              <BookShow />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="/admin"
           element={
             <ProtectedRoute>
-              <Admin />
+              {loader ? <h3>Loading...</h3> : <Admin />}
             </ProtectedRoute>
           }
         />
@@ -48,7 +62,7 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Profile />
+              {loader ? <h3>Loading...</h3> : <Profile />}
             </ProtectedRoute>
           }
         />
