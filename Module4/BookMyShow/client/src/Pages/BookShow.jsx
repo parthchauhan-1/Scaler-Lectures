@@ -1,18 +1,42 @@
+import moment from "moment";
+import StripeCheckout from 'react-stripe-checkout';
 import { message } from "antd";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { GetShowById } from "../apicalls/shows";
-import moment from "moment"
-
+import { MakePayment } from "../apicalls/bookings";
+import { useDispatch } from 'react-redux'
+import { setLoading } from '../reduxStore/loaderSlice';
+import Button from '../Components/Button';
 
 export default function BookShow() {
     const [selectedSeats, setSelectedSeats] = useState([]);
-    let [show, setShow] = useState();
+    const [show, setShow] = useState();
+
     const params = useParams();
+    const dispatch = useDispatch();
+
+    const onToken = async (token, amount) => {
+        try {
+            dispatch(setLoading(true));
+            const res = await MakePayment({ token: token, amount: selectedSeats.length * show.ticketPrice * 100 });
+            console.log(res);
+            if (res.success) {
+                message.success(res.message);
+            }
+        } catch (error) {
+            message.error(error.message);
+        }
+        finally {
+            dispatch(setLoading(false));
+        }
+    }
+
     const getData = async () => {
         try {
             const response = await GetShowById({ showId: params.id })
             if (response.success) {
+                console.log(response.data)
                 setShow(response.data);
             } else {
                 message.error(response.message)
@@ -90,8 +114,6 @@ export default function BookShow() {
     return (
         show && (
             <div>
-                {/* show infomation */}
-
                 <div className="flex justify-between card p-2 items-center">
                     <div>
                         <h1 className="text-sm">{show.theatre.name}</h1>
@@ -127,14 +149,14 @@ export default function BookShow() {
                                 </h1>
                             </div>
                         </div>
-                        {/* <StripeCheckout
-                token={onToken}
-                amount={selectedSeats.length * show.ticketPrice * 100}
-                billingAddress
-                stripeKey="pk_test_51JKPQWSJULHQ0FL7VOkMrOMFh0AHMoCFit29EgNlVRSvFkDxSoIuY771mqGczvd6bdTHU1EkhJpojOflzoIFGmj300Uj4ALqXa"
-              >
-                <Button title="Book Now" />
-              </StripeCheckout> */}
+                        <StripeCheckout
+                            token={onToken}
+                            amount={selectedSeats.length * show.ticketPrice * 100}
+                            billingAddress
+                            stripeKey="pk_test_51P98wrSIukwwjUYWFu9e17eTigKuDMdTxnOee6Oh5lt0yFjCTa1T4gnqW4qq9jNDpk4IQ51kTM54pbCM4IU7th4u00OnJmd9q7"
+                        >
+                            <Button title="Book Now" />
+                        </StripeCheckout>
                     </div>
                 )}
             </div>
