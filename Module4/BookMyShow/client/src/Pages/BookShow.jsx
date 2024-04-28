@@ -2,10 +2,10 @@ import moment from "moment";
 import StripeCheckout from 'react-stripe-checkout';
 import { message } from "antd";
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GetShowById } from "../apicalls/shows";
-import { MakePayment } from "../apicalls/bookings";
-import { useDispatch } from 'react-redux'
+import { MakePayment, BookTickets } from "../apicalls/bookings";
+import { useDispatch, useSelector } from 'react-redux'
 import { setLoading } from '../reduxStore/loaderSlice';
 import Button from '../Components/Button';
 
@@ -15,14 +15,33 @@ export default function BookShow() {
 
     const params = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector(store => store.user);
+
+    const bookTickets = async (transactionId) => {
+        try {
+            const res = await BookTickets({
+                show: params.id,
+                user: user._id,
+                transactionId: transactionId,
+                seats: selectedSeats
+            });
+            if (res.success) {
+                message.success(res.message);
+                navigate('/profile');
+            }
+        } catch (error) {
+            message.error(error.message);
+        }
+    }
 
     const onToken = async (token, amount) => {
         try {
             dispatch(setLoading(true));
             const res = await MakePayment({ token: token, amount: selectedSeats.length * show.ticketPrice * 100 });
-            console.log(res);
             if (res.success) {
                 message.success(res.message);
+                bookTickets(res.data);
             }
         } catch (error) {
             message.error(error.message);
@@ -36,7 +55,6 @@ export default function BookShow() {
         try {
             const response = await GetShowById({ showId: params.id })
             if (response.success) {
-                console.log(response.data)
                 setShow(response.data);
             } else {
                 message.error(response.message)

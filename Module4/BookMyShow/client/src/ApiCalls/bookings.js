@@ -7,7 +7,24 @@ export const MakePayment = async (payload) => {
       `${BASE_URL}/create-checkout-session`,
       payload
     );
-    console.log(res);
+    return res.data;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const BookTickets = async (payload) => {
+  try {
+    const res = await axiosInstance.post(`${BASE_URL}/book-tickets`, payload);
+    return res.data;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const GetBookings = async () => {
+  try {
+    const res = await axiosInstance.get(`${BASE_URL}/get-bookings`);
     return res.data;
   } catch (error) {
     return error.response;
